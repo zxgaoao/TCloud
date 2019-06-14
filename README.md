@@ -11,3 +11,4 @@
 #### eureka-consumer-feign          声明式的http client
 #### tosun-config                   分布式配置中心服务端
 #### toosun-config-client           分布式配置中心客户端
+#### tosun-stream-hello             消息驱动
