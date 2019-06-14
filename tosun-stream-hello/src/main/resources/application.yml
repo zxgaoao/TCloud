@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: tosun-stream-hello
+server:
+#  port: 0
+  port: 22020
