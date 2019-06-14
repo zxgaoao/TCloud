@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: hystrix-dashboard
+server:
+  port: 22011
+
+## º‡øÿ√Ê∞Â
+## ∑√Œ µÿ÷∑: http://192.168.8.36:22011/hystrix
+##           http://192.168.8.36:22011/hystrix.stream

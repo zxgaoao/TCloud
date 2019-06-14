@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: api-gateway
+server:
+  port: 22012
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.8.36:22001/eureka/
+zuul:
+  routes:
+    eureka-client1: /route-map1/**
+    route-map2:
+      path: /route-map2/**
+      serviceId: eureka-client1
+    route-map3:
+      path: /route-map3/**
+      url: http://192.168.8.36:22002/
+  ribbon:
+    eureka:
+      enabled: false
+  eureka-client1:
+    ribbon:
+      listOfServers: http://192.168.8.36:22002/,http://192.168.8.36:22092/
+

@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: config-client
+  cloud:
+    config:
+      uri: http://localhost:21201/
+      profile: default
+      label: master
+      discovery:
+        ## 参数设置为true，开启通过服务来访问Config Server的功能
+        enabled: true
+        ## 参数来指定Config Server注册的服务名
+        service-id: config-server
+      ## 通过URI的方式访问时候一样，用来定位Git中的资源
+
+server:
+  port: 21001
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.8.36:22001/eureka/
+
+
+## 访问地址: http://localhost:21001/info
+## 配置文件名称务必为bootstrap
+## 因为bootstrap.properties的加载是先于application.properties的
+
+## http://localhost:21001/from

@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: api-gateway
+server:
+  port: 22012
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.8.36:22001/eureka/
+zuul:
+  ## 配置路由映射
+  routes:
+    ## [1] 服务名称映射,给指定的服务做映射, 当前配置给eureka-client1添加映射地址为/route-map1
+    eureka-client1: /route-map1/**
+    ## [2] path绑定映射
+    route-map2:
+      path: /route-map2/** #映射的路径
+      serviceId: eureka-client1 #给特定服务做映射,和之前效果一样
+    ## [3] url绑定映射
+    route-map3:
+      path: /route-map3/** #映射的路径
+      url: http://192.168.8.36:22002/
+  ## [4] url绑定映射实现负载均衡
+  ribbon:
+    eureka:
+      enabled: false #在eureka中禁用 ribbon 的负载均衡
+  eureka-client1: #给配置serviceId对应的服务指定ribbon负载均衡,从ListOfServers配置的地址中选择,多个逗号分隔
+    ribbon:
+      listOfServers: http://192.168.8.36:22002/,http://192.168.8.36:22092/
+
+#### 网关新路由：http://192.168.8.36:22002/dc --> http://192.168.8.36:22012/eureka-client1/dc
+#### http://192.168.8.36:22002/api-a/hello  (原eureka-client1服务)-->
+#### http://192.168.8.36:22012/eureka-client1/api-a/hello  (zuul网关)-->
+#### 1 http://192.168.8.36:22012/route-map1/api-a/hello  (zuul 服务名称映射)-->
+#### 2 http://192.168.8.36:22012/route-map2/api-a/hello  (zuul path绑定映射)-->
+#### 3 http://192.168.8.36:22012/route-map3/api-a/hello  (zuul url绑定映射)-->
+#### 4 (zuul url绑定映射实现负载均衡)
+#### 5 正则表达式映射
+#### 6 添加前缀映射
+#### 7 过滤服务代理
+#### 参考: https://blog.csdn.net/u013985664/article/details/80737729
+
+#### 过滤器: http://192.168.8.36:22012/route-map1/api-a/hello访问不通
+####         http://192.168.8.36:22012/route-map1/api-a/hello?accessToken=token 可以访问

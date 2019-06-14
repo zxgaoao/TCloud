@@ -1,0 +1,14 @@
+spring:
+  application:
+    ## 多个应用相同的name则为客户端侧的负载均衡
+    name: eureka-consumer
+#    name: eureka-client1
+server:
+  port: 22005
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.8.36:22001/eureka/
+
+
+##  访问地址: http://192.168.8.36:22005/consumer

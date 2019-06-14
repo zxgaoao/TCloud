@@ -1,0 +1,24 @@
+server:
+  port: 21201
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+#          uri: http://git.oschina.net/didispace/config-repo-demo/
+          ## 公司git地址
+          uri: http://gaozx@27.223.89.148:8083/r/springcloud.git
+          username: gaozx
+          password: tcco123456
+
+## 配置服务注册中心
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.8.36:22001/eureka/
+
+## 访问地址, 要访问master分支，config-client应用的dev环境:
+## http://localhost:21201/config-client/dev/master
+## config-client配置文件的名字
